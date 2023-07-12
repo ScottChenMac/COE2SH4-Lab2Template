@@ -3,16 +3,18 @@
 #include "Questions.h"
 
 
-// This is the first major lab question without any hints in the comments.
+// this is the very first question without hints in the comments.  read the manual to develop your own algorithm
 
-void efficient(const int source[], int val[], int pos[], int size)
+// Read Questions.h to understand the definition of Q3Struct
+
+void efficient(const int source[], struct Q3Struct effVector[], int size)
 {
-	
+
 
 }
 
-void reconstruct(int source[], int m, const int val[], const int pos[], int n)
+void reconstruct(int source[], int m, struct Q3Struct effVector[], int n)
 {
-    
+
 
 }

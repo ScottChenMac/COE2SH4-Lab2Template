@@ -12,9 +12,17 @@ double norm2(double vector1[],int size);
 void diag_scan(int mat [][N3], int arr []);
 
 
-// Functions of Question 3
-void efficient(const int source[], int val[], int pos[], int size);
-void reconstruct(int source[], int m, const int val[], const int pos[], int n);
+// Functions and Struct Definition of Question 3
+
+// This struct is used to record the value and the position index of non-zero values in a sparse vector
+struct Q3Struct
+{
+    int val;
+    int pos;
+};
+
+void efficient(const int source[], struct Q3Struct effVector[], int size);
+void reconstruct(int source[], int m, struct Q3Struct effVector[], int n);
 
 
 // Functions and Struct Definition of Question 4

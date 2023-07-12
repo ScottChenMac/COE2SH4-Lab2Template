@@ -66,49 +66,43 @@ void TestQ2(CuTest *tc) {
 void TestQ3_1(CuTest *tc) {
 	int n=8;
 	int input[]={0,0,23,0,-7,0,0,48};
-	int actual_output_val[8]={0};
-	int actual_output_pos[8]={0};
-	efficient(input,actual_output_val,actual_output_pos,n);
-	int expected_output_val[8]={ 23, -7, 48,0,0,0,0,0};
-	int expected_output_pos[8]={2, 4, 7,0,0,0,0,0};
+	struct Q3Struct actual[8] = {0};
+	struct Q3Struct expected[8] = {{23, 2}, {-7, 4}, {48, 7}, {0, 0}, {0, 0}, {0, 0}, {0, 0}, {0, 0}};
+	efficient(input,actual,n);
     
 	int i;
 	for (i=0; i<n; i++){
-		CuAssertIntEquals(tc, expected_output_val[i], actual_output_val[i]);
-		CuAssertIntEquals(tc, expected_output_pos[i], actual_output_pos[i]);
+		CuAssertIntEquals(tc, expected[i].val, actual[i].val);
+		CuAssertIntEquals(tc, expected[i].pos, actual[i].pos);
 	}
 }
 
 void TestQ3_zeros(CuTest *tc) {
 	int n=8;
 	int input[]={0,0,0,0,0,0,0,0};
-	int actual_output_val[8]={0};
-	int actual_output_pos[8]={0};
-	efficient(input,actual_output_val,actual_output_pos,n);
-	int expected_output_val[8]={0};
-	int expected_output_pos[8]={0};
+	struct Q3Struct actual[8] = {0};
+	struct Q3Struct expected[8] = {0};
+	efficient(input,actual,n);
     
 	int i;
 	for (i=0; i<n; i++){
-		CuAssertIntEquals(tc, expected_output_val[i], actual_output_val[i]);
-		CuAssertIntEquals(tc, expected_output_pos[i], actual_output_pos[i]);
+		CuAssertIntEquals(tc, expected[i].val, actual[i].val);
+		CuAssertIntEquals(tc, expected[i].pos, actual[i].pos);
 	}
 }
 
 void TestQ3_combined(CuTest *tc) {
 	int n=8;
 	int input[]={0,0,23,0,-7,0,0,48};
-	int actual_output_val[8]={0};
-	int actual_output_pos[8]={0};
-	int actual_output[8]={0};
-	efficient(input,actual_output_val,actual_output_pos,n);
-	reconstruct(actual_output,8,actual_output_val,actual_output_pos,3);
-	int expected_output[8]= {0,0,23,0,-7,0,0,48};
+	struct Q3Struct int_result[8] = {0};
+	int expected[8] = {0,0,23,0,-7,0,0,48};
+	int actual[8] = {0};
+	efficient(input,int_result,n);
+	reconstruct(actual, 8, int_result, 3);
 
 	int i;
 	for (i=0; i<n; i++){
-		CuAssertIntEquals(tc, expected_output[i], actual_output[i]);
-
+		CuAssertIntEquals(tc, expected[i], actual[i]);
 	}
 }
     
