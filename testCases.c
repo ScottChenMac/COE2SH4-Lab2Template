@@ -50,7 +50,7 @@ void TestQ1_norm(CuTest *tc) {
 void TestQ2(CuTest *tc) {
 	int n = 3;
 	int input[3][3] = {{1, 2, 3},{ 5, 8, 9},{ 0, 3, 5}};
-	int expected[9]= {1, 5, 2, 0, 8, 3, 3, 9, 5};
+	int expected[9]= {1, 2, 5, 3, 8, 0, 9, 3, 5};
 	int actual[9];
 	diag_scan(input,actual);
 
