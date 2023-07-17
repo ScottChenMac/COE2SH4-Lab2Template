@@ -3,20 +3,50 @@
 #include "Questions.h"
 
 
+// Debugging Report Question
+// 2 Semantic Errors, Debugger Report Required
+// EVEN IF you see the error by code reading / by inspection, you need to still
+//  1. Set up the breakpoint at the right place
+//  2. Set up the watches over the relevant variables
+//  3. Use stepping in debugger to show the exact moment where the bug occurs, and how it deviates from the expected behaviour
+//  4. Show how your proposed fix defeats the bug.
+
 void sortDatabyBubble(struct Q4Struct array[], int size)
 {
-    // Recall: struct is a multi-datatype data collection.
-    // With an array of structs, each element is a struct with multiple data members.
-    // When operating on structs, you must consider all the relevant data members.
-    
-    // This is the same Bubble Sort question from Lab 1, except now you'd have to carry it out on 
-    // an array of struct.  This question will help you get familiar with struct and operations on it.
+    struct Q4Struct temp;
+    temp.intData = 0;
+    temp.charData = 0;
 
-    // No algorithm hints will be provided - well, because it's really the same question from Lab 1. ;)
+    int i;
+    int curr, next;
+    int done = 0;
 
+    while(!done)
+    {
+        done = 1;
+               
+        for(i = 0; i <= size - 1; i++)        
+        { 
+            curr = array[i].intData;
+            next = array[i + 1].intData;
 
+            // Swap two elements whenever current element value is larger than the value of the next element.
+            if(curr > next)
+            {
+                temp.intData = array[i].intData;
+                temp.charData = array[i].charData;
 
+                array[i].intData = temp.intData;
+                array[i].charData = temp.charData;
 
+                array[i + 1].intData = array[i].intData
+                array[i + 1].charData = array[i].charData;
+
+                done = 0;
+            }
+        }
+
+    }    
 }
 
 
