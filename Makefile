@@ -1,5 +1,5 @@
 CC=gcc
-CFLAGS=-I. -lm
+CFLAGS=-I. -lm -g
 DEPS = *.h
 OBJ = AllTests.o testCases.o CuTest.o Question1.o Question2.o Question3.o Question4.o
 
