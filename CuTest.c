@@ -49,9 +49,9 @@ CuString* CuStringNew(void)
 
 void CuStringDelete(CuString *str)
 {
-        if (!str) return;
-        free(str->buffer);
-        free(str);
+    if (!str) return;
+    free(str->buffer);
+    free(str);
 }
 
 void CuStringResize(CuString* str, int newSize)
@@ -106,6 +106,12 @@ void CuStringInsert(CuString* str, const char* text, int pos)
 }
 
 /*-------------------------------------------------------------------------*
+ * CuTest Message List Helper Methods
+ *-------------------------------------------------------------------------*/
+
+
+
+/*-------------------------------------------------------------------------*
  * CuTest
  *-------------------------------------------------------------------------*/
 
@@ -128,9 +134,10 @@ CuTest* CuTestNew(const char* name, TestFunction function)
 
 void CuTestDelete(CuTest *t)
 {
-        if (!t) return;
-        free(t->name);
-        free(t);
+    if (!t) return;
+    free(t->name);
+	free((void*)t->message);
+    free(t);
 }
 
 void CuTestRun(CuTest* tc)
@@ -142,6 +149,7 @@ void CuTestRun(CuTest* tc)
 		tc->ran = 1;
 		(tc->function)(tc);
 	}
+	
 	tc->jumpBuf = 0;
 }
 
@@ -153,8 +161,21 @@ static void CuFailInternal(CuTest* tc, const char* file, int line, CuString* str
 	CuStringInsert(string, buf, 0);
 
 	tc->failed = 1;
+
+	free((void*)tc->message);
 	tc->message = string->buffer;
-	if (tc->jumpBuf != 0) longjmp(*(tc->jumpBuf), 0);
+
+	// if(tc->jumpBuf != 0) longjmp(*(tc->jumpBuf), 0);
+	//  this is a really bad practice - exception handling using setjmp is extremely unreliable
+	//  due to this design, no teardown will take place if Assert fails. :(
+
+	// In addition, this implementation only holds one assert fail message, NOT an array.  Need proper implementation of string array
+	//  NOT immediately important, but needs to be fixed.
+	//
+	// Method: 
+	//  1. Change const char * message into    char ** messageList
+	//  2. Set up helper functions to a) Allocate List (fixed size 256 char* for now), b) Deallocate List, c) Add String to List, d) use Failed count to track the list size
+	//  3. Report at the end of the test all the test messages, then deallocate the entire list	
 }
 
 void CuFail_Line(CuTest* tc, const char* file, int line, const char* message2, const char* message)
@@ -199,7 +220,8 @@ void CuAssertStrEquals_LineMsg(CuTest* tc, const char* file, int line, const cha
 	CuStringAppend(&string, "> but was <");
 	CuStringAppend(&string, actual);
 	CuStringAppend(&string, ">");
-	CuFailInternal(tc, file, line, &string);
+	CuFailInternal(tc, file, line, &string);	
+
 }
 
 void CuAssertIntEquals_LineMsg(CuTest* tc, const char* file, int line, const char* message, 
