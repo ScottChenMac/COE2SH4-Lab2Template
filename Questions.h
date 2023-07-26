@@ -22,7 +22,7 @@ struct Q3Struct
 };
 
 void efficient(const int source[], struct Q3Struct effVector[], int size);
-void reconstruct(int source[], int m, struct Q3Struct effVector[], int n);
+void reconstruct(int source[], int m, const struct Q3Struct effVector[], int n);
 
 
 // Functions and Struct Definition of Question 4
