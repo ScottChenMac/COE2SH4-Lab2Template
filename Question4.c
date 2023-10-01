@@ -4,6 +4,7 @@
 
 
 // Debugging Report Question
+// 1 Syntatic Error - Fix it through compiler message
 // 2 Semantic Errors, Debugger Report Required
 // EVEN IF you see the error by code reading / by inspection, you need to still
 //  1. Set up the breakpoint at the right place
